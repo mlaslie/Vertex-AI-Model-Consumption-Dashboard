@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vertex AI Gemini Monitoring</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Vertex AI Gemini Monitoring</h1>
+        <div class="controls">
+            <label>Window
+                <select id="window">
+                    <option value="3600">Last 1 hour</option>
+                    <option value="21600">Last 6 hours</option>
+                    <option value="86400" selected>Last 24 hours</option>
+                    <option value="604800">Last 7 days</option>
+                    <option value="2592000">Last 30 days</option>
+                </select>
+            </label>
+            <label>Model
+                <select id="model">
+                    <option value="">All models</option>
+                </select>
+            </label>
+            <label>Auto-refresh
+                <select id="refresh">
+                    <option value="0" selected>Off</option>
+                    <option value="30000">30s</option>
+                    <option value="60000">1m</option>
+                    <option value="300000">5m</option>
+                </select>
+            </label>
+            <button id="reload">Reload</button>
+            <span id="status"></span>
+        </div>
+    </header>
+
+    <section class="cards" id="summary-cards">
+        <div class="card"><div class="label">Total requests</div><div class="value" id="card-total">—</div></div>
+        <div class="card"><div class="label">Avg QPM</div><div class="value" id="card-qpm">—</div></div>
+        <div class="card"><div class="label">Success rate</div><div class="value" id="card-success">—</div></div>
+        <div class="card"><div class="label">Avg input tokens</div><div class="value" id="card-input">—</div></div>
+        <div class="card"><div class="label">Avg output tokens</div><div class="value" id="card-output">—</div></div>
+    </section>
+
+    <section class="grid">
+        <div class="chart-box wide">
+            <h2>Queries per minute</h2>
+            <div class="chart-wrap"><canvas id="qpm-chart"></canvas></div>
+        </div>
+        <div class="chart-box wide">
+            <h2>Tokens per minute (input vs output)</h2>
+            <div class="chart-wrap"><canvas id="tokens-chart"></canvas></div>
+        </div>
+        <div class="chart-box">
+            <h2>Response codes</h2>
+            <div class="chart-wrap"><canvas id="codes-chart"></canvas></div>
+        </div>
+        <div class="chart-box">
+            <h2>Queries by model</h2>
+            <div class="chart-wrap"><canvas id="models-chart"></canvas></div>
+        </div>
+        <div class="chart-box">
+            <h2>Queries by region</h2>
+            <div class="chart-wrap"><canvas id="regions-chart"></canvas></div>
+        </div>
+    </section>
+
+    <section class="table-section">
+        <h2>Per-model statistics</h2>
+        <div class="table-wrap">
+            <table id="model-stats-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th class="num">Total queries</th>
+                        <th class="num">Avg QPS</th>
+                        <th class="num">Peak QPS</th>
+                        <th class="num">Avg QPM</th>
+                        <th class="num">Peak QPM</th>
+                        <th class="num">Avg input TPM</th>
+                        <th class="num">Peak input TPM</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
