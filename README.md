@@ -4,6 +4,8 @@ An interactive web dashboard for Vertex AI Gemini usage in a GCP project. It
 pulls metrics from the Google Cloud Monitoring API and renders them with
 Chart.js.
 
+![Dashboard screenshot](model-reporting.jpg)
+
 ## What you get
 
 - Headline cards: total requests, average QPM, success rate, avg input/output tokens
